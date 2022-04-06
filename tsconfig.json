@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "jsx": "react-jsx",
+    "lib": ["es2017", "dom"],
+    "module": "commonjs",
+    "declaration": true,
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "removeComments": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "isolatedModules": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "noUnusedParameters": true,
+    "noUnusedLocals": true,
+    "noImplicitReturns": true,
+    "forceConsistentCasingInFileNames": true,
+    "target": "es2017",
+    "sourceMap": true,
+    "outDir": "./dist",
+    "baseUrl": ".",
+    "incremental": true,
+    "skipLibCheck": true,
+    "noFallthroughCasesInSwitch": true,
+    "types": ["react/next", "react-dom/next"]
+  },
+  "exclude": ["node_modules", ".eslintrc.js", "dist"]
+}

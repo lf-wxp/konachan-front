@@ -1,0 +1,12 @@
+{
+  "plugins": {
+    "postcss-normalize": true,
+    "postcss-import": {
+      "path": ["src/css"]
+    },
+    "postcss-assets": {
+      "loadPaths": ["src/fonts", "src/images"]
+    },
+    "postcss-color-function": true
+  }
+}
