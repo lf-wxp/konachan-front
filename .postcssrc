@@ -5,8 +5,11 @@
       "path": ["src/css"]
     },
     "postcss-assets": {
-      "loadPaths": ["src/fonts", "src/images"]
+      "loadPaths": ["src/font", "src/image"]
     },
-    "postcss-color-function": true
+    "postcss-color-function": true,
+    "postcss-preset-env": {
+      "stage": 0
+    }
   }
 }

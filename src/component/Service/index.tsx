@@ -36,6 +36,7 @@ export default React.memo(() => {
         setTotal(data.total);
       })
       .finally(() => {
+        console.log('finish');
         setLoading(false);
       });
   }, [refresh, tags, page]);

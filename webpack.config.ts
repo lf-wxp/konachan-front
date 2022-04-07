@@ -68,26 +68,32 @@ export default {
   },
   ...(isDev
     ? {
-        devServer: {
-          hot: true, // enable HMR on the server
-          port: 9999,
-          host: '0.0.0.0',
-          historyApiFallback: true,
-          headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods':
-              'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-            'Access-Control-Allow-Headers':
-              'X-Requested-With, content-type, Authorization',
-          },
-          proxy: {
-            '/api/**': {
-              target: 'http://localhost:3000/',
-              changeOrigin: true,
-            },
+      devServer: {
+        setupMiddlewares: (middlewares: any, devServer: any) => {
+          devServer.app.get("/api/post", (_req: any, res: any) => {
+            res.sendFile(resolve(__dirname, './src/images.mock.json'));
+          });
+          return middlewares;
+        },
+        hot: true, // enable HMR on the server
+        port: 9999,
+        host: '0.0.0.0',
+        historyApiFallback: true,
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods':
+            'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+          'Access-Control-Allow-Headers':
+            'X-Requested-With, content-type, Authorization',
+        },
+        proxy: {
+          '/api/**': {
+            target: 'http://localhost:3000/',
+            changeOrigin: true,
           },
         },
-      }
+      },
+    }
     : {}),
   ...(isDev ? { devtool: 'cheap-module-source-map' } : {}),
   plugins: [
@@ -97,32 +103,32 @@ export default {
     }),
     new webpack.EnvironmentPlugin('NODE_ENV'),
     !isDev &&
-      new pwaManifest({
-        name: 'BetterKonachan',
-        short_name: 'BetterKonachan',
-        description: 'BetterKonachan',
-        background_color: '#ffffff',
-        crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
-        start_url: '/',
-        ios: true,
-        publicPath: '/',
-        icons: [
-          {
-            src: resolve(__dirname, './src/image/icon.jpg'),
-            sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
-          },
-        ],
-      }),
+    new pwaManifest({
+      name: 'BetterKonachan',
+      short_name: 'BetterKonachan',
+      description: 'BetterKonachan',
+      background_color: '#ffffff',
+      crossorigin: 'use-credentials', //can be null, use-credentials or anonymous
+      start_url: '/',
+      ios: true,
+      publicPath: '/',
+      icons: [
+        {
+          src: resolve(__dirname, './src/image/icon.jpg'),
+          sizes: [96, 128, 192, 256, 384, 512], // multiple sizes
+        },
+      ],
+    }),
     !isDev &&
-      new InjectManifest({
-        swSrc: resolve(__dirname, './src/sw.ts'),
-        swDest: resolve(__dirname, './dist/sw.js'),
-        maximumFileSizeToCacheInBytes: 20000000,
-      }),
+    new InjectManifest({
+      swSrc: resolve(__dirname, './src/sw.ts'),
+      swDest: resolve(__dirname, './dist/sw.js'),
+      maximumFileSizeToCacheInBytes: 20000000,
+    }),
     isDev &&
-      new ReactRefreshWebpackPlugin({
-        overlay: false,
-        forceEnable: true,
-      }),
+    new ReactRefreshWebpackPlugin({
+      overlay: false,
+      forceEnable: true,
+    }),
   ].filter(Boolean),
 };
