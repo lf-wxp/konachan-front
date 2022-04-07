@@ -12,7 +12,7 @@ import {
   update,
   add,
   multiply,
-  merge,
+  mergeLeft,
   reduce,
   filter,
 } from 'ramda';
@@ -101,7 +101,7 @@ const calcListItemSize = (
   ) as unknown) as number;
   const height = multiply(colWidth)(ratio);
   const { x, y } = calcPositionPure(colWidth)(cols);
-  return merge({
+  return mergeLeft({
     styleW: colWidth,
     styleH: height,
     style: {

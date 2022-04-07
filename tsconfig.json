@@ -2,7 +2,7 @@
   "compilerOptions": {
     "jsx": "react-jsx",
     "lib": ["es2017", "dom"],
-    "module": "commonjs",
+    "module": "ESNext",
     "declaration": true,
     "moduleResolution": "node",
     "esModuleInterop": true,
@@ -22,8 +22,12 @@
     "baseUrl": ".",
     "incremental": true,
     "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true,
-    "types": ["react/next", "react-dom/next"]
+    "noFallthroughCasesInSwitch": true
   },
-  "exclude": ["node_modules", ".eslintrc.js", "dist"]
+  "exclude": ["node_modules", "dist"],
+  "ts-node": {
+    "compilerOptions": {
+      "module": "CommonJS"
+    }
+  }
 }
