@@ -4,7 +4,6 @@
   block-size: calc(3 * var(--themePageItemSize));
   position: relative;
   z-index: 2;
-  font-family: 'NanoCore';
 
   &.active {
     animation: none;
@@ -204,15 +203,17 @@
   display: block;
   inline-size: 100%;
   block-size: 100%;
-  font-family: ZagRegular;
   line-height: var(--themePageItemSize);
   letter-spacing: 2px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .bk-pager_item {
   position: absolute;
   color: white;
-  font-size: 20px;
+  font-size: 12px;
   inline-size: var(--themePageItemSize);
   block-size: var(--themePageItemSize);
   inset-inline-start: var(--themePageItemSize);
@@ -234,7 +235,7 @@
   }
 
   &.middle {
-    font-size: 14px;
+    font-size: 12px;
   }
 }
 
@@ -252,8 +253,7 @@
 .bk-pager_go-input {
   line-height: 45px;
   text-align: center;
-  font-size: 20px;
-  font-family: ZagRegular;
+  font-size: 12px;
   display: block;
   color: white;
   inline-size: 100%;
@@ -269,13 +269,16 @@
 }
 
 .bk-pager_go-span {
-  font-size: 14px;
+  font-size: 12px;
   line-height: var(--themePageItemSize);
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
 .bk-pager_go-input {
   color: white;
-  font-size: 14px;
+  font-size: 12px;
   outline: none;
   box-sizing: border-box;
   border-block-end: 4px solid var(--themeBaseColor);
