@@ -164,6 +164,7 @@ export default React.memo(() => {
             className="bk-pager_go-input"
             type="text"
             name="pager"
+            placeholder="page"
             value={statePage}
             onChange={onChange}
           />
