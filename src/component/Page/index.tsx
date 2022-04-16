@@ -53,7 +53,6 @@ export default React.memo(() => {
   const [page, setPage] = useRecoilState(pageState);
   const total = useRecoilValue(totalState);
   const pageArray: number[] = getPageArray(page, total);
-  console.log('pages', page, total, pageArray);
   const [statePage, setStatePage] = useState<number>();
 
   const getData: (p: number) => void = useCallback(

@@ -15,7 +15,7 @@ import './app.pcss';
 const App: React.MemoExoticComponent<() => React.ReactElement> = React.memo(
   () => {
     return (
-      <React.Fragment>
+      <section className='bk-container'>
         <Background />
         <DotLine />
         <Service />
@@ -28,7 +28,7 @@ const App: React.MemoExoticComponent<() => React.ReactElement> = React.memo(
           <ImageList />
           <Loading />
         </section>
-      </React.Fragment>
+      </section>
     );
   },
 );

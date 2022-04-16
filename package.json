@@ -59,6 +59,7 @@
 		"react-dom": "^18.0.0",
 		"react-icons": "^4.3.1",
 		"react-perfect-scrollbar": "^1.5.8",
+		"react-toastify": "^8.2.0",
 		"react-transition-group": "^4.4.2",
 		"react-use": "^17.3.2",
 		"recoil": "^0.7.0",

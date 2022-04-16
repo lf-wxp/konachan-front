@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { useRecoilState } from 'recoil';
+import { toast } from 'react-toastify';
 import axios from 'axios';
 
 import {
@@ -10,6 +11,18 @@ import {
   pageState,
   refreshToggleState,
 } from '../../store';
+
+const errorNotice = (msg: string) =>
+  toast.error(msg, {
+    position: 'top-right',
+    autoClose: 3000,
+    hideProgressBar: false,
+    closeOnClick: true,
+    draggable: true,
+    pauseOnHover: true,
+    progress: undefined,
+    theme: 'dark',
+  });
 
 export default React.memo(() => {
   const [, setImages] = useRecoilState(imagesState);
@@ -26,7 +39,7 @@ export default React.memo(() => {
         url: '/api/post',
         method: 'GET',
         headers: {
-          'x-api-key': 'konachan-api'
+          'x-api-key': 'konachan-api',
         },
         params: {
           tags,
@@ -35,11 +48,22 @@ export default React.memo(() => {
         },
       })
       .then(({ data }) => {
-        setImages(data.images);
-        setTotal(data.total);
+        const {
+          code,
+          msg,
+          data: { images, count },
+        } = data;
+        if (code !== 0) {
+          errorNotice(msg);
+          return;
+        }
+        setImages(images);
+        setTotal(count);
+      })
+      .catch((err) => {
+        errorNotice(err);
       })
       .finally(() => {
-        console.log('finish');
         setLoading(false);
       });
   }, [refresh, tags, page]);
