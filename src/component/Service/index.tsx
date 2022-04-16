@@ -25,6 +25,9 @@ export default React.memo(() => {
       .request({
         url: '/api/post',
         method: 'GET',
+        headers: {
+          'x-api-key': 'konachan-api'
+        },
         params: {
           tags,
           page,
