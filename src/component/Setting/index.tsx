@@ -11,7 +11,7 @@ export default React.memo(() => {
   const [, setRefresh] = useRecoilState(refreshToggleState);
   const [loading] = useRecoilState(loadingState);
   const handleSecurityClick: TFuncVoid = (): void => {
-    setSecurity((s) => !s);
+    setSecurity(true);
   };
 
   const handleRefreshClick: TFuncVoid = (): void => {
