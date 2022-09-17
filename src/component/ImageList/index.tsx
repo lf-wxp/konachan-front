@@ -36,17 +36,14 @@ export default React.memo(() => {
     images,
   });
 
-  const combineStyle: TFunc2<
-    CSSProperties,
-    number,
-    CSSProperties
-  > = useCallback(
-    (style: CSSProperties, key: number): CSSProperties => ({
-      ...style,
-      transitionDelay: `${key * 0.05}s`,
-    }),
-    [],
-  );
+  const combineStyle: TFunc2<CSSProperties, number, CSSProperties> =
+    useCallback(
+      (style: CSSProperties, key: number): CSSProperties => ({
+        ...style,
+        transitionDelay: `${key * 0.05}s`,
+      }),
+      []
+    );
 
   return (
     <PerfectScrollbar>

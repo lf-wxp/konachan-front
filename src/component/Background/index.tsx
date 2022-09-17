@@ -18,7 +18,7 @@ const bgUri: string = bgs[Math.floor(Math.random() * 3)];
 
 export default React.memo(() => {
   const [, setColor] = useRecoilState(colorSetState);
-  const img = useRef((null as unknown) as HTMLImageElement);
+  const img = useRef(null as unknown as HTMLImageElement);
   const onLoad = useCallback(async () => {
     const palette = await Vibrant.from(img.current).getSwatches();
     const vibrantColor = palette.Vibrant?.hex;

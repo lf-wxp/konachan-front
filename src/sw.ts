@@ -16,7 +16,7 @@ import { ExpirationPlugin } from 'workbox-expiration';
 
 clientsClaim();
 
-// @ts-ignore
+// @ts-expect-error
 precacheAndRoute(self.__WB_MANIFEST.concat([{ url: '/' }]));
 
 // Cache page navigations (html) with a Network First strategy
@@ -33,7 +33,7 @@ registerRoute(
         statuses: [200],
       }),
     ],
-  }),
+  })
 );
 
 // Cache CSS, JS, and Web Worker requests with a Stale While Revalidate strategy
@@ -53,7 +53,7 @@ registerRoute(
         statuses: [200],
       }),
     ],
-  }),
+  })
 );
 
 // Cache images with a Cache First strategy
@@ -75,5 +75,5 @@ registerRoute(
         maxAgeSeconds: 60 * 60 * 24 * 30, // 30 Days
       }),
     ],
-  }),
+  })
 );

@@ -11,7 +11,7 @@ import './style.pcss';
 const size = 4;
 const getPageArray: TFunc2<number, number, number[]> = (
   page: number,
-  pages: number,
+  pages: number
 ): number[] => {
   if (pages <= 0) {
     return [];
@@ -59,11 +59,11 @@ export default React.memo(() => {
     (p: number): void => {
       setPage(p);
     },
-    [setPage],
+    [setPage]
   );
 
   const invoke: TFunc1Void<React.FormEvent<HTMLLIElement>> = (
-    event: React.FormEvent<HTMLLIElement>,
+    event: React.FormEvent<HTMLLIElement>
   ): void => {
     const { id } = event.currentTarget.dataset;
     const p: number = Number.parseInt(id as string, 10);
@@ -71,7 +71,7 @@ export default React.memo(() => {
   };
 
   const onChange: TFunc1Void<React.ChangeEvent> = (
-    event: React.ChangeEvent,
+    event: React.ChangeEvent
   ): void => {
     const target: HTMLInputElement = event.currentTarget as HTMLInputElement;
     const val: string = target.value;
@@ -88,7 +88,7 @@ export default React.memo(() => {
   };
 
   const goTo: TFunc1Void<React.FormEvent<HTMLButtonElement>> = (
-    event: React.FormEvent<HTMLButtonElement>,
+    event: React.FormEvent<HTMLButtonElement>
   ): void => {
     event.preventDefault();
     getData(statePage || 1);

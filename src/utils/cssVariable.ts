@@ -7,7 +7,7 @@ const getValue: (key: string) => string = (key: string): string => {
 
 const setValue: (key: string, val: string) => void = (
   key: string,
-  val: string,
+  val: string
 ): void => {
   document.documentElement.style.setProperty(key, val);
 };

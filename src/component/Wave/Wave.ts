@@ -29,7 +29,7 @@ export default class Wave {
     canvas: HTMLCanvasElement,
     waveNum: number,
     waveDot: number,
-    colorList?: string[],
+    colorList?: string[]
   ) {
     this.waveNum = waveNum;
     this.waveDot = waveDot;
@@ -79,7 +79,7 @@ export default class Wave {
       .fill(0)
       .map(
         (__, idx) =>
-          new WaveItem(colorList?.[idx] ?? this.randomColor(), waveDot, width),
+          new WaveItem(colorList?.[idx] ?? this.randomColor(), waveDot, width)
       );
   }
 
@@ -100,7 +100,7 @@ export default class Wave {
           node[0],
           node[1],
           diffNode(node[0], nextNode[0]),
-          diffNode(node[1], nextNode[1]),
+          diffNode(node[1], nextNode[1])
         );
       } else {
         this.ctx.lineTo(node[0], node[1]);

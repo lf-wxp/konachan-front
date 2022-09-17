@@ -1,7 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import ImagePool from '../utils/imagePool';
 
-export default <T>(imgs: T[], prop: string, limit = 4): T[] => {
+export default <T extends Record<string, any>>(
+  imgs: T[],
+  prop: string,
+  limit = 4
+): T[] => {
   const [images, setImages] = useState([] as T[]);
   const imagePool = useRef(
     new ImagePool<T>({
@@ -11,7 +15,7 @@ export default <T>(imgs: T[], prop: string, limit = 4): T[] => {
       // eslint-disable-next-line @typescript-eslint/no-empty-function
       onError: (): void => {},
       limit,
-    }),
+    })
   );
 
   useEffect(() => {

@@ -10,10 +10,8 @@ import {
   not,
   nth,
   pipe,
-  SafePred,
   test,
   flip,
-  T,
 } from 'ramda';
 import React, { useEffect, useRef, useState } from 'react';
 import { useMeasure } from 'react-use';
@@ -29,7 +27,7 @@ interface DotLineProps {
   height?: string | number;
 }
 
-const judge = (fn: SafePred<any>, idx: number): ((x: any) => boolean) =>
+const judge = (fn: any, idx: number): ((x: any) => boolean) =>
   pipe(nth(idx), fn);
 
 const int = curry(Number.parseInt);
@@ -37,12 +35,14 @@ const int = curry(Number.parseInt);
 const percent2number = pipe(
   match(/(\d+)/),
   nth(0),
+  // @ts-ignore
   flip(int)(10),
   flip(divide)(100),
-  multiply,
+  multiply
 );
 
 const parseWidthPercent = ([percent, width]: [unknown, number]): number =>
+  // @ts-expect-error
   percent2number(percent as string)(width);
 
 const getSize = cond<[unknown, number], number>([
@@ -53,20 +53,19 @@ const getSize = cond<[unknown, number], number>([
       judge(test(/^\d+%$/), 0),
       judge(pipe(isNil, not), 1),
     ]),
+    // @ts-expect-error
     parseWidthPercent,
   ],
 ]);
 
 export default React.memo<DotLineProps>(
   ({ width = '100%', height = '100%' }) => {
-    const canvas = useRef((null as unknown) as HTMLCanvasElement);
+    const canvas = useRef(null as unknown as HTMLCanvasElement);
     const [realH, setRealH] = useState<number>(0);
     const [realW, setRealW] = useState(0);
-    const bgObj = useRef((null as unknown) as DotLine);
-    const [
-      ref,
-      { width: parentW, height: parentH },
-    ] = useMeasure<HTMLDivElement>();
+    const bgObj = useRef(null as unknown as DotLine);
+    const [ref, { width: parentW, height: parentH }] =
+      useMeasure<HTMLDivElement>();
     const [{ mute, vibrant }] = useRecoilState(colorSetState);
 
     useEffect(() => {
@@ -74,10 +73,12 @@ export default React.memo<DotLineProps>(
     }, []);
 
     useEffect(() => {
+      // @ts-expect-error
       setRealH(getSize([height, parentH]));
     }, [height, parentH]);
 
     useEffect(() => {
+      // @ts-expect-error
       setRealW(getSize([width, parentW]));
     }, [width, parentW]);
 
@@ -89,7 +90,10 @@ export default React.memo<DotLineProps>(
 
     useEffect(() => {
       if (bgObj.current) {
-        bgObj.current.setColor({ dotColor: vibrant, lineColor: mute });
+        bgObj.current.setColor({
+          dotColor: vibrant ?? '#39cccc',
+          lineColor: mute ?? '#39cccc',
+        });
       }
     }, [vibrant, mute]);
 
@@ -103,5 +107,5 @@ export default React.memo<DotLineProps>(
         />
       </div>
     );
-  },
+  }
 );

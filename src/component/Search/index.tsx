@@ -9,15 +9,15 @@ export default React.memo(() => {
   const [tags, setTags] = useRecoilState(tagsState);
   const [value, setValue] = useState('');
   const onKeyPress = useCallback(
-    (e): void => {
+    (e: React.KeyboardEvent): void => {
       if (e.key === 'Enter' && value !== tags) {
-        setTags(value)
+        setTags(value);
       }
     },
-    [value, tags],
+    [value, tags]
   );
-  const onInput = useCallback((e): void => {
-    setValue(e.target.value);
+  const onInput = useCallback((e: React.FormEvent<HTMLInputElement>): void => {
+    setValue((e.target as HTMLInputElement).value);
   }, []);
 
   return (

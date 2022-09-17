@@ -37,7 +37,7 @@ export default ({
   };
 
   const onError: TFunc1Void<React.FormEvent<HTMLImageElement>> = (
-    e: React.FormEvent<HTMLImageElement>,
+    e: React.FormEvent<HTMLImageElement>
   ): void => {
     const target: HTMLImageElement = e.currentTarget;
     setState(EImageState.error);

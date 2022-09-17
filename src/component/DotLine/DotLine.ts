@@ -105,7 +105,7 @@ export default class DotLine {
     canvas: HTMLCanvasElement,
     lineNum: number,
     lineColor = '#ccc',
-    dotColor = '#000',
+    dotColor = '#000'
   ) {
     this.lineNum = lineNum;
     this.canvas = canvas;

@@ -8,5 +8,5 @@ interface WaveProps {
 }
 
 export default React.memo<WaveProps>(({ width = '100%', height }) => {
-  return <canvas className='bk-wave' width={width} height={height} />;
+  return <canvas className="bk-wave" width={width} height={height} />;
 });

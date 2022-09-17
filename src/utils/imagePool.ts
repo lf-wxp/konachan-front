@@ -51,7 +51,7 @@ class ImagePool<T extends Record<string, any>> {
     return of(url)
       .pipe(
         mergeMap((url) => imagePromise(url)),
-        retry(2),
+        retry(2)
       )
       .subscribe(
         (url) => {
@@ -64,7 +64,7 @@ class ImagePool<T extends Record<string, any>> {
         () => {
           this.cleanResolved(url);
           this.addImage();
-        },
+        }
       );
   }
 
