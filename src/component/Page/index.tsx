@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import mousetrap from 'mousetrap';
-
-import { TFuncVoid, TFunc2, TFunc1Void } from '../../utils/type';
-import { pageState, totalState } from '../../store';
 import 'mousetrap/plugins/global-bind/mousetrap-global-bind';
+
+import { TFuncVoid, TFunc2, TFunc1Void } from '@/utils/type';
+import { pageState, totalState, colorSetState } from '@/store';
 
 import './style.pcss';
 
@@ -54,6 +54,7 @@ export default React.memo(() => {
   const total = useRecoilValue(totalState);
   const pageArray: number[] = getPageArray(page, total);
   const [statePage, setStatePage] = useState<number>();
+  const [{ mute }] = useRecoilState(colorSetState);
 
   const getData: (p: number) => void = useCallback(
     (p: number): void => {
@@ -120,6 +121,8 @@ export default React.memo(() => {
     };
   }, [next, prev]);
 
+  const animationClass = useMemo(() => (mute ? 'animation' : ''), [mute]);
+
   return (
     <section className={`bk-pager ${pageArray.length ? 'active' : ''}`}>
       <span
@@ -160,10 +163,10 @@ export default React.memo(() => {
         </div>
         <div className="bk-pager_go-div">
           <input
-            className="bk-pager_go-input"
+            className={`bk-pager_go-input ${animationClass}`}
             type="text"
-            name="pager"
             placeholder="page"
+            name="pager"
             value={statePage}
             onChange={onChange}
           />

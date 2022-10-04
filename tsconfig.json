@@ -1,33 +1,26 @@
 {
   "compilerOptions": {
-    "jsx": "react-jsx",
-    "lib": ["es2017", "dom"],
-    "module": "ESNext",
-    "declaration": true,
-    "moduleResolution": "node",
-    "esModuleInterop": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "isolatedModules": true,
+    "target": "ESNext",
+    "useDefineForClassFields": true,
+    "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "allowJs": false,
+    "skipLibCheck": true,
     "allowSyntheticDefaultImports": true,
     "strict": true,
-    "noUnusedParameters": true,
-    "noUnusedLocals": true,
-    "noImplicitReturns": true,
     "forceConsistentCasingInFileNames": true,
-    "target": "es2017",
-    "sourceMap": true,
-    "outDir": "./dist",
-    "baseUrl": ".",
-    "incremental": true,
-    "skipLibCheck": true,
-    "noFallthroughCasesInSwitch": true
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "noEmit": true,
+    "jsx": "react-jsx",
+    "rootDir": ".",
+    "baseUrl": "./",
+    "paths": {
+      "@/*": ["src/*"],
+    },
+    "types": ["vite/client", "node"]
   },
-  "exclude": ["node_modules", "dist"],
-  "ts-node": {
-    "compilerOptions": {
-      "module": "CommonJS"
-    }
-  }
+  "include": ["src", "vite.config.ts"]
 }

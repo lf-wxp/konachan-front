@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/ban-ts-comment */
 import { registerRoute } from 'workbox-routing';
 import { precacheAndRoute } from 'workbox-precaching';
 import { clientsClaim } from 'workbox-core';

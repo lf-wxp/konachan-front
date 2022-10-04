@@ -17,9 +17,9 @@ import {
   filter,
 } from 'ramda';
 
-import { TFunc1 } from '../utils/type';
-import { ImageDetail } from '../model/image';
-import { ImageDom } from '../model/imageDom';
+import type { TFunc1 } from '@/utils/type';
+import type { ImageDetail } from '@/model/image';
+import type { ImageDom } from '@/model/imageDom';
 
 interface UseWaterfallProps {
   security: boolean;

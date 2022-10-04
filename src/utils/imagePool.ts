@@ -38,11 +38,11 @@ class ImagePool<T extends Record<string, any>> {
   }
 
   start(images: T[], prop: string): void {
-    this.urls = images?.map((imgs) => imgs[prop] as string);
+    this.urls = images.map((imgs) => imgs[prop] as string);
     this.images = images;
     this.prop = prop;
     this.pool.clear();
-    while (this.urls?.length > 0 && this.pool.size < this.limit) {
+    while (this.urls.length > 0 && this.pool.size < this.limit) {
       this.addImage();
     }
   }

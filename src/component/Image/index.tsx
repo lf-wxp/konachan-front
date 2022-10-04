@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-import { TFunc1Void, TFuncVoid } from '../../utils/type';
+import { TFunc1Void, TFuncVoid } from '@/utils/type';
 
 import './style.pcss';
 

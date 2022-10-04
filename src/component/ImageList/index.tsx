@@ -5,15 +5,18 @@ import { CSSTransition, TransitionGroup } from 'react-transition-group';
 import { useMeasure } from 'react-use';
 import { useRecoilState, useRecoilValue } from 'recoil';
 
-import Image from '../Image';
-import useImageLoad from '../../hook/useImageLoad';
-import useWaterfall from '../../hook/useWaterfall';
-import fallbackImage from '../../image/loaderror.png';
-import { securityState, imagesState } from '../../store';
+import Image from '@/component/Image';
+import useImageLoad from '@/hook/useImageLoad';
+import useWaterfall from '@/hook/useWaterfall';
+import fallbackImage from '@/image/loaderror.png';
+import { securityState, imagesState, downloadItemsState } from '@/store';
+import { PLATFORM } from '@/env';
+import { downloadItem } from '@/utils/action';
+import { DownloadStatus } from '@/model/downloadItem';
 
-import { TFunc2 } from '../../utils/type';
-import { ImageDetail } from '../../model/image';
-import { ImageDom } from '../../model/imageDom';
+import type { ImageDetail } from '@/model/image';
+import type { ImageDom } from '@/model/imageDom';
+import type { TFunc2 } from '@/utils/type';
 
 import 'react-perfect-scrollbar/dist/css/styles.css';
 import './style.pcss';
@@ -21,11 +24,10 @@ import './style.pcss';
 const maxWidth = 300;
 const minWidth = 200;
 
-const transformUrl = (url: string) => `/api/image?url=${encodeURI(url)}`;
-
 export default React.memo(() => {
   const items = useRecoilValue<ImageDetail[]>(imagesState);
   const [security] = useRecoilState(securityState);
+  const [, setDownloadItems] = useRecoilState(downloadItemsState);
   const [refDom, { width }] = useMeasure<HTMLDivElement>();
   const images = useImageLoad<ImageDetail>(items, 'preview');
   const list = useWaterfall({
@@ -35,6 +37,38 @@ export default React.memo(() => {
     width,
     images,
   });
+
+  // for tauri
+  const downloadImage = useCallback(async (url: string, preview: string) => {
+    setDownloadItems((prev) => {
+      const hasItem = !!prev.find(
+        (item) => item.url === url && item.status !== DownloadStatus.FAIL
+      );
+      if (hasItem) return prev;
+      downloadItem({ url, preview });
+      return [
+        ...prev,
+        { url, preview, percent: 0, status: DownloadStatus.PENDING },
+      ];
+    });
+  }, []);
+
+  // for web
+  const transformUrl = (url: string) => `/api/image?url=${encodeURI(url)}`;
+
+  const downloadProp = useCallback(
+    (item: ImageDom) => {
+      if (PLATFORM === 'tauri') {
+        return {
+          onClick: () => downloadImage(item.url, item.preview),
+        };
+      }
+      return {
+        href: transformUrl(item.url),
+      };
+    },
+    [downloadImage]
+  );
 
   const combineStyle: TFunc2<CSSProperties, number, CSSProperties> =
     useCallback(
@@ -66,15 +100,15 @@ export default React.memo(() => {
                 />
                 <div className="bk-list__tool">
                   <p className="bk-list__info">
-                    <span>{item.width}</span> / <span>{item.height}</span>
+                    {item.width} / {item.height}
                   </p>
                 </div>
                 <a
-                  href={transformUrl(item.url)}
                   className="bk-list__down"
                   // rel="noopener noreferrer"
                   data-id={item.id}
                   download={item.name}
+                  {...downloadProp(item)}
                 >
                   <FaDownload />
                 </a>

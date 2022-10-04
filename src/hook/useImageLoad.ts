@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import ImagePool from '../utils/imagePool';
+
+import ImagePool from '@/utils/imagePool';
 
 export default <T extends Record<string, any>>(
   imgs: T[],

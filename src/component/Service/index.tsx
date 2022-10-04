@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
+import { useAsync } from 'react-use';
 import { useRecoilState } from 'recoil';
-import { toast } from 'react-toastify';
-import axios from 'axios';
 
+import { PLATFORM } from '@/env';
 import {
   imagesState,
   totalState,
@@ -10,63 +10,45 @@ import {
   tagsState,
   pageState,
   refreshToggleState,
-} from '../../store';
+  downloadItemsState,
+  modeState,
+} from '@/store';
+import {
+  getPost,
+  listenProgress,
+  ProgressAction,
+  updateProgress,
+} from '@/utils/action';
 
-const errorNotice = (msg: string) =>
-  toast.error(msg, {
-    position: 'top-right',
-    autoClose: 3000,
-    hideProgressBar: false,
-    closeOnClick: true,
-    draggable: true,
-    pauseOnHover: true,
-    progress: undefined,
-    theme: 'dark',
-  });
+import type { DownloadItem } from '@/model/downloadItem';
 
 export default React.memo(() => {
   const [, setImages] = useRecoilState(imagesState);
   const [, setTotal] = useRecoilState(totalState);
   const [, setLoading] = useRecoilState(loadingState);
+  const [, setDownloadItems] = useRecoilState(downloadItemsState);
   const [tags] = useRecoilState(tagsState);
   const [page] = useRecoilState(pageState);
   const [refresh] = useRecoilState(refreshToggleState);
+  const [mode] = useRecoilState(modeState);
+
+  useAsync(async () => {
+    setLoading(true);
+    const data = await getPost({ page, tags, refresh, mode });
+    setLoading(false);
+    if (!data) return;
+    setImages(data.images);
+    setTotal(data.count);
+  }, [refresh, tags, page, mode]);
 
   useEffect(() => {
-    setLoading(true);
-    axios
-      .request({
-        url: '/api/post',
-        method: 'GET',
-        headers: {
-          'x-api-key': 'konachan-api',
-        },
-        params: {
-          tags,
-          page,
-          refresh,
-        },
-      })
-      .then(({ data }) => {
-        const {
-          code,
-          msg,
-          data: { images, count },
-        } = data;
-        if (code !== 0) {
-          errorNotice(msg);
-          return;
-        }
-        setImages(images);
-        setTotal(count);
-      })
-      .catch((err) => {
-        errorNotice(err);
-      })
-      .finally(() => {
-        setLoading(false);
-      });
-  }, [refresh, tags, page]);
-
+    // for tauri
+    if (PLATFORM !== 'tauri') return;
+    listenProgress((data: DownloadItem) => {
+      setDownloadItems((prev) =>
+        updateProgress(prev, ProgressAction.UPDATE, data)
+      );
+    });
+  }, []);
   return null;
 });

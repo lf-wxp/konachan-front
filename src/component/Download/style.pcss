@@ -1,0 +1,73 @@
+.bk-download {
+  box-sizing: border-box;
+  flex: 1 0 1px;
+  overflow-y: auto;
+
+  & .scrollbar-container {
+    inline-size: 100%;
+  }
+}
+
+.bk-download__box {
+  display: flex;
+  justify-content: space-between;
+  flex-flow: row wrap;
+  align-content: flex-start;
+}
+
+.bk-download__item {
+  flex: 0 0 auto;
+  inline-size: var(--themeDownloadItemWidth);
+  margin-block-end: 10px;
+  position: relative;
+
+  & img {
+    block-size: var(--themeDownloadItemHeight);
+    border-radius: 2px;
+    inline-size: 100%;
+    object-fit: cover;
+  }
+}
+
+.bk-download__icon {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  color: var(--themeBaseColor);
+}
+
+.bk-download__catch {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+
+  &:hover {
+    & .bk-download__error {
+      opacity: 0;
+      visibility: hidden;
+    }
+
+    & .bk-download__retry {
+      opacity: 1;
+      visibility: visible;
+    }
+  }
+}
+
+.bk-download__error {
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  color: var(--themeErrorColor);
+  transition: opacity 0.2s ease;
+}
+
+.bk-download__retry {
+  opacity: 0;
+  cursor: pointer;
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  color: var(--themeBaseColor);
+  transition: opacity 0.2s ease;
+}

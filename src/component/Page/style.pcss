@@ -4,6 +4,7 @@
   block-size: calc(3 * var(--themePageItemSize));
   position: relative;
   z-index: 2;
+  font-family: 'NanoCore';
 
   &.active {
     animation: none;
@@ -203,19 +204,16 @@
   display: block;
   inline-size: 100%;
   block-size: 100%;
-  line-height: var(--themePageItemSize);
-  letter-spacing: 2px;
   font-family: ZagRegular;
-  text-overflow: ellipsis;
-  overflow: hidden;
-  white-space: nowrap;
+  line-height: var(--themePageItemSize);
+  color: var(--themeBaseColor);
+  letter-spacing: 2px;
 }
 
 .bk-pager_item {
   position: absolute;
   color: white;
-  font-size: 16px;
-  font-family: ZagRegular;
+  font-size: 20px;
   inline-size: var(--themePageItemSize);
   block-size: var(--themePageItemSize);
   inset-inline-start: var(--themePageItemSize);
@@ -237,7 +235,7 @@
   }
 
   &.middle {
-    font-size: 12px;
+    font-size: 14px;
   }
 }
 
@@ -253,9 +251,9 @@
 
 .bk-pager_go-span,
 .bk-pager_go-input {
-  line-height: 45px;
   text-align: center;
-  font-size: 12px;
+  font-size: 20px;
+  font-family: ZagRegular;
   display: block;
   color: white;
   inline-size: 100%;
@@ -266,27 +264,29 @@
   background: none;
 
   &::placeholder {
-    color: white;
+    color: var(--themeBaseColor);
   }
 }
 
 .bk-pager_go-span {
-  font-family: ZagRegular;
   font-size: 12px;
   line-height: var(--themePageItemSize);
   text-overflow: ellipsis;
   overflow: hidden;
+  color: var(--themeBaseColor);
   white-space: nowrap;
 }
 
 .bk-pager_go-input {
-  font-family: ZagRegular;
   color: white;
-  font-size: 12px;
+  font-size: 14px;
   outline: none;
   box-sizing: border-box;
   border-block-end: 4px solid var(--themeBaseColor);
-  animation: blink 1s ease-in-out infinite alternate-reverse both;
+  color: var(--themeBaseColor);
+  &.animation {
+    animation: blink 1s ease-in-out infinite alternate-reverse both;
+  }
 }
 
 .bk-pager_go-em,
@@ -302,6 +302,7 @@
   inset-inline-start: 0;
   inset-block-start: 0;
   vertical-align: top;
+  color: var(--themeBaseColor);
   background-color: var(--themePageNavBgColor);
   transition: all 0.2s ease;
 }

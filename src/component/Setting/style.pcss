@@ -9,9 +9,19 @@
   inline-size: 24px;
   block-size: 24px;
   position: relative;
-  border: 4px solid var(--themeBaseColor);
-  animation: breathSet 2s ease-in-out 0.5s infinite alternate-reverse both;
+  border-right: 4px solid var(--themeBaseColor);
+  border-bottom: 4px solid var(--themeBaseColor);
+  border-top: none;
+  border-left: none;
+  transition: all 0.2s ease;
+  &.animation {
+    animation: breathSet 2s ease-in-out 0.5s infinite alternate-reverse both;
+  }
   &.active {
+    border-top: 4px solid var(--themeBaseColor);
+    border-left: 4px solid var(--themeBaseColor);
+    border-bottom: none;
+    border-right: none;
     & .bk-setting__fake {
       transform: translate(100%, 100%);
     }
@@ -29,7 +39,10 @@
   inline-size: 50%;
   block-size: 50%;
   transition: transform 0.2s ease;
-  animation: breathItem 2s ease-in-out infinite alternate-reverse both;
+  background: var(--themeBaseColor);
+  &.animation {
+    animation: breathItem 2s ease-in-out infinite alternate-reverse both;
+  }
 }
 
 .bk-setting__refresh {
@@ -42,9 +55,14 @@
   position: relative;
   transition: all 0.1s linear;
   cursor: pointer;
-  border: 4px solid var(--themeBaseColor);
+  border-top: 4px solid var(--themeBaseColor);
+  border-bottom: 4px solid var(--themeBaseColor);
+  border-right: 0;
+  border-left: 0;
   box-sizing: border-box;
-  animation: breathSet 2s ease-in-out infinite alternate-reverse both;
+  &.animation {
+    animation: breathSet 2s ease-in-out infinite alternate-reverse both;
+  }
 
   & > div {
     height: 100%;
@@ -79,6 +97,30 @@
   }
 }
 
+.bk-mode {
+  flex: 0 0 auto;
+  inline-size: 32px;
+  block-size: 32px;
+  position: relative;
+  cursor: pointer;
+  &.json {
+    & .bk-mode__toggle {
+      transform: translateY(28px);
+    }
+  }
+}
+
+.bk-mode__toggle {
+  display: block;
+  cursor: pointer;
+  block-size: 4px;
+  transition: transform 0.2s ease;
+  background: var(--themeBaseColor);
+  &.animation {
+    animation: breathItem 2s ease-in-out 0.5s infinite alternate-reverse both;
+  }
+}
+
 @keyframes sk-stretchdelay {
   0%,
   40%,
@@ -95,7 +137,7 @@
     border-color: transparent;
   }
   100% {
-    border-color: var(--themeBaseColorTint20);
+    border-color: var(--themeBaseColor);
   }
 }
 
@@ -104,6 +146,6 @@
     background: transparent;
   }
   100% {
-    background: var(--themeBaseColorTint20);
+    background: var(--themeBaseColor);
   }
 }

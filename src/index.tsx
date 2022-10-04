@@ -1,23 +1,17 @@
-import React from 'react';
 import { createRoot } from 'react-dom/client';
+import { ToastContainer, Slide } from 'react-toastify';
 import { RecoilRoot } from 'recoil';
-import { ToastContainer } from 'react-toastify';
+
+import App from '@/App';
+
 import 'react-toastify/dist/ReactToastify.css';
 
-import App from './App';
-
 const container = document.getElementById('root');
-const root = createRoot(container!);
+const root = createRoot(container as Element);
+
 root.render(
   <RecoilRoot>
     <App />
-    <ToastContainer />
+    <ToastContainer transition={Slide} />
   </RecoilRoot>
 );
-
-if ('serviceWorker' in navigator && process.env.NODE_ENV === 'production') {
-  // Use the window load event to keep the page load performant
-  window.addEventListener('load', () => {
-    navigator.serviceWorker.register('/sw.js');
-  });
-}

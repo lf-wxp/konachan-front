@@ -17,8 +17,8 @@ import React, { useEffect, useRef, useState } from 'react';
 import { useMeasure } from 'react-use';
 import { useRecoilState } from 'recoil';
 
+import { colorSetState } from '@/store';
 import DotLine from './DotLine';
-import { colorSetState } from '../../store';
 
 import './style.pcss';
 

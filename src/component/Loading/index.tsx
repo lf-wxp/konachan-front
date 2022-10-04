@@ -2,7 +2,7 @@ import React from 'react';
 import { useRecoilState } from 'recoil';
 import { CubeGrid } from 'better-react-spinkit';
 
-import { loadingState } from '../../store';
+import { loadingState } from '@/store';
 
 import './style.pcss';
 
