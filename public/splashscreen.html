@@ -8,16 +8,35 @@
     />
   </head>
   <style>
-    html, body, img {
+    html,
+    body,
+    img {
       background: transparent;
     }
     img {
       width: 200px;
       height: 200px;
+      display: none;
       object-fit: scale-down;
     }
   </style>
   <body dir="ltr">
-    <img src="/loading.svg" />
+    <img id="splash" />
   </body>
+  <script>
+    const splashes = [
+      'blue-cat.svg',
+      'cutie-fox.svg',
+      'kaki-dog.svg',
+      'midori-kappa.svg',
+      'pinky-pig.svg',
+      'spooky-ghost.svg',
+    ];
+    const idx = Math.floor(Math.random() * splashes.length);
+    const img = document.querySelector('#splash');
+    img.onload = () => {
+      img.style.display = 'block';
+    };
+    img.src = `/splash/${splashes[idx]}`;
+  </script>
 </html>
