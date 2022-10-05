@@ -13,6 +13,7 @@ import type { TFunc1Void } from '@/utils/type';
 export enum Action {
   GET_POST = 'get_post',
   DOWNLOAD_ITEM = 'download_image',
+  CLOSE_SPLASHSCREEN = 'close_splashscreen',
 }
 
 enum Event {
@@ -107,6 +108,8 @@ export const getPost = async (params: {
 
 export const downloadItem = (params: { url: string; preview: string }) =>
   invoke<Data>(Action.DOWNLOAD_ITEM, params);
+
+export const closeSplashscreen = () => invoke(Action.CLOSE_SPLASHSCREEN);
 
 export const updateValue = (source: DownloadItem[], value: DownloadItem) => {
   return source.map((item) => {

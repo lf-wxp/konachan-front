@@ -1,9 +1,11 @@
 import React, { useCallback, useRef } from 'react';
 import { useRecoilState } from 'recoil';
-import Vibrant from 'node-vibrant/dist/vibrant.worker.min';
+import ColorThief from 'colorthief';
 
 import { colorSetState } from '@/store';
 import { CSSVariable } from '@/utils/cssVariable';
+import { closeSplashscreen } from '@/utils/action';
+import { PLATFORM } from '@/env';
 
 import bg0 from '@/image/bg0.jpg';
 import bg1 from '@/image/bg1.jpg';
@@ -45,16 +47,23 @@ export default React.memo(() => {
   const [, setColor] = useRecoilState(colorSetState);
   const img = useRef(null as unknown as HTMLImageElement);
   const onLoad = useCallback(async () => {
-    const palette = await Vibrant.from(img.current).getSwatches();
-    const vibrantColor = palette.Vibrant?.hex;
-    const mutedColor = palette.Muted?.hex;
+    const colorThief = new ColorThief();
+    const palette = colorThief.getPalette(img.current, 2);
+    const vibrantColor = palette[0];
+    const mutedColor = palette[1];
     if (vibrantColor && mutedColor) {
-      CSSVariable.setValue('--themeBaseColor', vibrantColor);
-      CSSVariable.setValue('--themeMutedColor', mutedColor);
+      CSSVariable.setValue(
+        '--themeBaseColor',
+        `rgb(${vibrantColor.join(',')})`
+      );
+      CSSVariable.setValue('--themeMutedColor', `rgb(${mutedColor.join(',')})`);
       setColor({
         mute: mutedColor,
         vibrant: vibrantColor,
       });
+    }
+    if (PLATFORM === 'tauri') {
+      closeSplashscreen();
     }
   }, [setColor]);
 

@@ -28,3 +28,5 @@ declare module '*.jpg' {
 declare module 'node-vibrant/dist/vibrant.worker.min';
 
 declare module 'better-react-spinkit';
+
+declare module 'colorthief';
