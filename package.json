@@ -59,7 +59,7 @@
 		"@tauri-apps/api": "^1.1.0",
 		"axios": "^0.27.2",
 		"better-react-spinkit": "^2.0.4",
-		"colorthief": "^2.3.2",
+		"color.js": "^1.2.0",
 		"mousetrap": "^1.6.5",
 		"ramda": "^0.28.0",
 		"react": "^18.2.0",
