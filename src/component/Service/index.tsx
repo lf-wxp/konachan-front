@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useAsync } from 'react-use';
 import { useRecoilState } from 'recoil';
 
-import { PLATFORM } from '@/env';
+import { PAGE_SIZE, PLATFORM } from '@/env';
 import {
   imagesState,
   totalState,
@@ -38,7 +38,7 @@ export default React.memo(() => {
     setLoading(false);
     if (!data) return;
     setImages(data.images);
-    setTotal(data.count);
+    setTotal(Math.ceil(data.count / PAGE_SIZE));
   }, [refresh, tags, page, mode]);
 
   useEffect(() => {

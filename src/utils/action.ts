@@ -4,7 +4,7 @@ import { invoke } from '@tauri-apps/api/tauri';
 import { listen } from '@tauri-apps/api/event';
 import axios, { AxiosResponse } from 'axios';
 
-import { PLATFORM } from '@/env';
+import { PAGE_SIZE, PLATFORM } from '@/env';
 
 import type { ImageDetail } from '@/model/image';
 import type { DownloadItem } from '@/model/downloadItem';
@@ -70,7 +70,10 @@ const getPostWeb = async (params: {
     headers: {
       'x-api-key': 'konachan-api',
     },
-    params,
+    params: {
+      ...params,
+      limit: PAGE_SIZE,
+    },
   });
 
   return data;
@@ -82,7 +85,7 @@ const getPostTauri = (params: {
   tags: string;
   refresh: boolean;
   mode: 'xml' | 'json';
-}) => invoke<Data>(Action.GET_POST, params);
+}) => invoke<Data>(Action.GET_POST, { ...params, limit: PAGE_SIZE });
 
 export const getPost = async (params: {
   page: number;

@@ -7,8 +7,8 @@ import { TFuncVoid, TFunc2, TFunc1Void } from '@/utils/type';
 import { pageState, totalState, colorSetState } from '@/store';
 
 import './style.pcss';
+const SIZE = 4;
 
-const size = 4;
 const getPageArray: TFunc2<number, number, number[]> = (
   page: number,
   pages: number
@@ -16,12 +16,12 @@ const getPageArray: TFunc2<number, number, number[]> = (
   if (pages <= 0) {
     return [];
   }
-  const half: number = Math.floor(size / 2);
+  const half: number = Math.floor(SIZE / 2);
   const navpage: number[] = [];
   if (page > half && page < pages - half) {
     let i: number = page - half;
     let j = 0;
-    while (j < size) {
+    while (j < SIZE) {
       navpage.push(i);
       i += 1;
       j += 1;
@@ -30,16 +30,16 @@ const getPageArray: TFunc2<number, number, number[]> = (
   if (page <= half) {
     let i = 1;
     let j = 0;
-    while (j < size) {
+    while (j < SIZE) {
       navpage.push(i);
       j += 1;
       i += 1;
     }
   }
   if (page >= pages - half) {
-    let i: number = pages - size + 1;
+    let i: number = pages - SIZE + 1;
     let j = 0;
-    while (j < size) {
+    while (j < SIZE) {
       navpage.push(i);
       j += 1;
       i += 1;
