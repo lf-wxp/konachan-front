@@ -4,10 +4,13 @@
 	"description": "",
 	"scripts": {
 		"dev:web": "vite --mode web",
+		"dev:safe": "vite --mode safe",
 		"dev:tauri": "vite --mode tauri",
 		"build:web": "vite build --mode web",
+		"build:safe": "vite build --mode safe",
 		"build:tauri": "vite build --mode tauri",
 		"preview:web": "vite preview --mode web",
+		"preview:safe": "vite preview --mode safe",
 		"preview:tauri": "vite preview --mode tauri",
 		"prepare": "husky install",
 		"lint": "eslint --fix --ext .tsx,.ts src",

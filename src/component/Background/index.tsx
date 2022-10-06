@@ -47,12 +47,10 @@ export default React.memo(() => {
   const [, setColor] = useRecoilState(colorSetState);
   const img = useRef(null as unknown as HTMLImageElement);
   const onLoad = useCallback(async () => {
-    const colors = await prominent(img.current, {
+    const [, mutedColor, vibrantColor] = (await prominent(img.current, {
       format: 'hex',
-      amount: 2,
-    });
-    const vibrantColor = colors[0] as string;
-    const mutedColor = colors[1] as string;
+      amount: 3,
+    })) as string[];
     if (vibrantColor && mutedColor) {
       CSSVariable.setValue('--themeBaseColor', vibrantColor);
       CSSVariable.setValue('--themeMutedColor', mutedColor);

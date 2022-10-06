@@ -10,7 +10,7 @@ import useImageLoad from '@/hook/useImageLoad';
 import useWaterfall from '@/hook/useWaterfall';
 import fallbackImage from '@/image/loaderror.png';
 import { securityState, imagesState, downloadItemsState } from '@/store';
-import { PLATFORM } from '@/env';
+import { PLATFORM, IS_SAFE_MODE } from '@/env';
 import { downloadItem } from '@/utils/action';
 import { DownloadStatus } from '@/model/downloadItem';
 
@@ -31,7 +31,7 @@ export default React.memo(() => {
   const [refDom, { width }] = useMeasure<HTMLDivElement>();
   const images = useImageLoad<ImageDetail>(items, 'preview');
   const list = useWaterfall({
-    security,
+    security: IS_SAFE_MODE || security,
     maxWidth,
     minWidth,
     width,
