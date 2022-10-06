@@ -7,6 +7,7 @@ import htmlPlugin from 'vite-plugin-html-config';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, __dirname);
+  const dist = env.VITE_SAFE_MODE ? 'dist_safe' : 'dist';
   return {
     plugins: [
       react(),
@@ -65,6 +66,7 @@ export default defineConfig(({ mode }) => {
     // `TAURI_PLATFORM_VERSION`、`TAURI_PLATFORM_TYPE` 和 `TAURI_DEBUG` 环境变量
     envPrefix: ['VITE_', 'TAURI_'],
     build: {
+      outDir: dist,
       // Tauri 支持 es2021
       target: ['es2021', 'chrome100', 'safari13'],
       // 不为调试构建压缩构建体积

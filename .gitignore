@@ -109,3 +109,4 @@ dist
 .parcel-cache
 settings.json
 dev-dist
+dist_safe
