@@ -15,4 +15,5 @@ pnpm run dev:web
 # Reference
 
 [konachan-api](https://github.com/lf-wxp/konachan-api) the konachan image data server
+
 [konachan-tauri](https://github.com/lf-wxp/konachan-tauri) the desktop version supported by tauri framework
