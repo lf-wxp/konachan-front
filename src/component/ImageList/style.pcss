@@ -16,11 +16,11 @@
   background-clip: content-box;
 
   &:hover {
-    @nest & :is(.bk-list__img, .bk-list__tool) {
+    & :is(.bk-list__img, .bk-list__tool) {
       transform: translateY(calc(var(--themeListToolHeight) * -1));
     }
 
-    @nest & :is(.bk-list__down) {
+    & :is(.bk-list__down) {
       transform: scale(1);
       opacity: 1;
       visibility: visible;

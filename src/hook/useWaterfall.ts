@@ -68,9 +68,7 @@ const calcColumnWidth =
           ),
           when(pipe(prop('colWidth'), flip(lt)(mM)), (p) => ({
             column: 1,
-            // @ts-expect-error
             colWidth: prop('width', p),
-            // @ts-expect-error
             width: prop('width', p),
           }))
         ),
