@@ -3,6 +3,7 @@ import react from '@vitejs/plugin-react';
 import mockPlugin from 'vite-plugin-file-mock';
 import { VitePWA } from 'vite-plugin-pwa';
 import htmlPlugin from 'vite-plugin-html-config';
+import checker from 'vite-plugin-checker';
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -20,6 +21,9 @@ export default defineConfig(({ mode }) => {
             content: 'konachan image acg',
           },
         ],
+      }),
+      checker({
+        typescript: true,
       }),
       ...(env.VITE_PLATFORM === 'web'
         ? [

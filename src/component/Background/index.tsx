@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { useRecoilState } from 'recoil';
 import { prominent } from 'color.js';
 
@@ -7,43 +7,10 @@ import { CSSVariable } from '@/utils/cssVariable';
 import { PLATFORM } from '@/env';
 import { closeSplashscreen } from '@/utils/action';
 
-import bg0 from '@/image/bg0.jpg';
-import bg1 from '@/image/bg1.jpg';
-import bg2 from '@/image/bg2.jpg';
-import bg3 from '@/image/bg3.jpg';
-import bg4 from '@/image/bg4.jpg';
-import bg5 from '@/image/bg5.jpg';
-import bg6 from '@/image/bg6.jpg';
-import bg7 from '@/image/bg7.jpg';
-import bg8 from '@/image/bg8.jpg';
-import bg9 from '@/image/bg9.jpg';
-import bg10 from '@/image/bg10.jpg';
-import bg11 from '@/image/bg11.jpg';
-import bg12 from '@/image/bg12.jpg';
-import bg13 from '@/image/bg13.jpg';
-
 import './style.pcss';
 
-const bgs: string[] = [
-  bg0,
-  bg1,
-  bg2,
-  bg3,
-  bg4,
-  bg5,
-  bg6,
-  bg7,
-  bg8,
-  bg9,
-  bg10,
-  bg11,
-  bg12,
-  bg13,
-];
-
-const bgUri: string = bgs[Math.floor(Math.random() * 11)];
-
 export default React.memo(() => {
+  const [image, setImage] = useState<string>();
   const [, setColor] = useRecoilState(colorSetState);
   const img = useRef(null as unknown as HTMLImageElement);
   const onLoad = useCallback(async () => {
@@ -66,11 +33,25 @@ export default React.memo(() => {
     }, 50);
   }, [setColor]);
 
+  useEffect(() => {
+    const loadImages = async () => {
+      const imageModules = import.meta.glob('../../image/bg*.jpg');
+      const loadedImages: string[] = [];
+      for (const path in imageModules) {
+        const module = await imageModules[path]();
+        loadedImages.push((module as { default: string }).default);
+      }
+      setImage(loadedImages[Math.floor(Math.random() * 21)]);
+    };
+    loadImages();
+  }, []);
+
   return (
     <figure className="bk-bg">
+      {image}
       <img
         ref={img}
-        src={bgUri}
+        src={image}
         className="bk-bg__image"
         alt="bg"
         onLoad={onLoad}
