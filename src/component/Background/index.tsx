@@ -48,7 +48,6 @@ export default React.memo(() => {
 
   return (
     <figure className="bk-bg">
-      {image}
       <img
         ref={img}
         src={image}
